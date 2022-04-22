@@ -1480,10 +1480,15 @@ We would have to change the scripts in the backend a bit:
 "scripts": {
   "watch": "tsc --watch",
   "build": "tsc",
-  "prestart": "yarn run build",
-  "start": "node dist/src/index.js",
+  "start": "ts-node src/index.ts",
   "dev": "nodemon dist/src/index.js"
- },
+},
+```
+
+We also need to add a file called `Procfile` which contain the start command. Create a file named `Procfile` under the `server` folder and add the following into that file:
+
+```
+web: yarn start
 ```
 
 Push the code to the GitHub repo and this should railway should redeploy it for us.
