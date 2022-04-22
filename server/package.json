@@ -5,8 +5,9 @@
   "license": "MIT",
   "scripts": {
     "watch": "tsc --watch",
-    "start": "node dist/src/index.js",
     "build": "tsc",
+    "prestart": "yarn run build",
+    "start": "node dist/src/index.js",
     "dev": "nodemon dist/src/index.js"
   },
   "dependencies": {

@@ -1436,6 +1436,60 @@ As we have changed some code in the cli folder, we would have to build the code 
 
 🎉 It's working!!! LFG 🚀
 
+# 🚀 Deploying
+
+Let's now deploy the frontend and the backend and publish the entire cli to npmjs.
+
+## 🎨 Deploying the frontend
+
+Let's deploy the frontend on [Vercel](https://vercel.com/). If you are building a Next.js application and want to deploy it, Vercel is the best option in my opinion.
+
+Let's first create a initialize a git repository from the root directory of the project.
+
+```bash
+git init
+```
+
+Create a new GitHub repository (Psst.. https://repo.new 👀) and push the code to the repository.
+
+Head over to https://vercel.com/dashboard and create a new project and edit the root directory from `./` to `web`.
+
+![](https://imgur.com/XunPAf7.png)
+
+![](https://imgur.com/Cgdi1Y4.png)
+
+Click on deploy and that's it 🎉!
+
+## 🚄 Deploying the backend
+
+We would be deploying the backend on [Railway](https://railway.app/). Create a new project and select "Deploy from GitHub repo"
+
+![](https://imgur.com/4HGqGt2.png)
+
+Select the GitHub repo and select add environment variables.
+
+This should create a new project for us. Open up that project you would first see that the deploy has been failed, don't worry we would fix that in a minute.
+
+Open the settings tab
+
+![](https://imgur.com/k5q2vau.png)
+
+We would have to change the scripts in the backend a bit:
+
+```json
+"scripts": {
+  "watch": "tsc --watch",
+  "build": "tsc",
+  "prestart": "yarn run build",
+  "start": "node dist/src/index.js",
+  "dev": "nodemon dist/src/index.js"
+ },
+```
+
+Push the code to the GitHub repo and this should railway should redeploy it for us.
+
+This should redeploy the latest commit again.
+
 All those who have read the blog post until here you can deserve a big round of applause.
 
 ![](https://c.tenor.com/Sq7rY9NKKd4AAAAC/oscars-standing-ovation.gif)
