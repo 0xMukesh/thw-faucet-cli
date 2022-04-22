@@ -197,7 +197,7 @@ Fill in the inputs which are been asked and hit enter. This should generate a fo
 
 ![](https://imgur.com/IbGbxej.png)
 
-> Psst... I am making a monorepo for this tutorial. So make sure to add the CLI and website are in `cli` and `web` folders respectively.
+> Psst... I am making a monorepo for this tutorial. So make sure to add the CLI and website into the `cli` and `web` folders respectively.
 
 Let's now clear up some default generated files by Oclif that we are not going to be using in this tutorial.
 
@@ -298,7 +298,7 @@ export default connectWallet;
 
 I have wrapped the entire code which is responsible for connecting the user's wallet inside a function. This helps us to maintain our codebase clean.
 
-Let's import the `connectWallet` function into our `src/commands/login.ts` file and call it from the `run` function.
+Let's import the `connectWallet` function into our `src/commands/login.ts` file and call it inside the `run` function.
 
 ```ts
 import { Command } from "@oclif/core";
@@ -419,7 +419,7 @@ const connectWallet = async () => {
 export default connectWallet;
 ```
 
-👀 We have changed some code in the website. So let's head back to the `web` folder and open the `pages/index.tsx` file. Let's replace the code where we were showing the user's wallet address after he connected to redirecting the user to the local express's `/callback` with the address query parameter.
+👀 We have to change some code in the website. So let's head back to the `web` folder and open the `pages/index.tsx` file. Let's replace the code where we were showing the user's wallet address after he connected to redirecting the user to the local express's `/callback` with the address query parameter.
 
 ```ts
 import type { NextPage } from "next";
@@ -1524,7 +1524,7 @@ Let's now publish it to npmjs by using the `npm publish` command. Woohoo! It's f
 
 # 👋 The end
 
-All those who have read the blog post until here can deserve a big round of applause.
+All those who have read the blog post until here deserves a big round of applause.
 
 ![](https://c.tenor.com/Sq7rY9NKKd4AAAAC/oscars-standing-ovation.gif)
 
