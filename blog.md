@@ -831,7 +831,7 @@ export default class Request extends Command {
 }
 ```
 
-### ✨ Building the backend
+# ✨ Building the backend
 
 Let's now start building the backend 🦄.
 
@@ -1269,7 +1269,7 @@ Let's now send the request 🚀!
 
 🎉 Woohoo! It's working like a charm
 
-### 👀 Integrating the backend and the CLI
+# 👀 Integrating the backend and the CLI
 
 Let's now integrate the backend and the cli using the [`axios`](https://npmjs.com/package/axios) library. We would be calling the backend using axios and then console logging the transaction link into the terminal.
 
