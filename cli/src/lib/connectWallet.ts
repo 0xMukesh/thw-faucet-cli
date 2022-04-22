@@ -42,7 +42,7 @@ const connectWallet = async () => {
           "/callback",
           async (req: express.Request, res: express.Response) => {
             resolve(req.query.address);
-            res.redirect("http://localhost:3000/redirect");
+            res.redirect("http://localhost:3000/done");
           }
         );
 
