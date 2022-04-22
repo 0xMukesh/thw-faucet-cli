@@ -197,7 +197,7 @@ Fill in the inputs which are been asked and hit enter. This should generate a fo
 
 ![](https://imgur.com/IbGbxej.png)
 
-> Psst... I am making a monorepo for this tutorial. So make sure to make the CLI and website are in `cli` and `web` folders respectively.
+> Psst... I am making a monorepo for this tutorial. So make sure to add the CLI and website are in `cli` and `web` folders respectively.
 
 Let's now clear up some default generated files by Oclif that we are not going to be using in this tutorial.
 
