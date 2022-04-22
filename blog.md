@@ -1322,9 +1322,9 @@ Woah! That's a lot of code. Let's break it down:
   yarn add ora@5.4.1
   ```
 
-  Why are we installing the v5.4.1 of ora ? Because the latest version of ora is pure ESM module and instead of changing a hell lot of code, we can just install the version of ora which isn't pure ESM.
+  Why are we installing the v5.4.1 of ora? Because the latest version of ora is a pure ESM module and instead of changing a hell lot of code, we can just install the version of ora which isn't pure ESM.
 
-  Ora comes with in-built TypeScript declarations so there is no need to install separate for it's types.
+  Ora comes with in-built TypeScript declarations so there is no need to install separately for its types.
 
 - We are importing the `axios` package and the `chalk` package. We have already installed the `chalk` package previously. So to install `axios` package run the following command:
 
@@ -1349,7 +1349,7 @@ Woah! That's a lot of code. Let's break it down:
   const spinner = ora(`🦄 sending tokens to ${wallet} on ${network}`).start();
   ```
 
-- We are calling the backend with the `address` and `network` query parameters.We are then returning the transaction link which is sent along with the response when we call the backend.
+- We are calling the backend with the `address` and `network` query parameters. We are then returning the transaction link which is sent along with the response when we call the backend.
 
 ```ts
 await axios
@@ -1415,9 +1415,9 @@ export default class Request extends Command {
 
 Let's test it out 🚀! Let me delete the `.thw-faucet-cli` folder from my root directory as I want to test the login command as well.
 
-Let's first build the code of the cli by using the `yarn build` command. Open another terminal window and cd into the server folder and run `yarn dev` command. Open another terminal window and cd into the web folder and run `yarn dev` command.
+Let's first build the code of the cli by using the `yarn build` command. Open another terminal window cd into the server folder and run the `yarn dev` command. Open another terminal window cd into the web folder and run the `yarn dev` command.
 
-😱 Oh no! We have just found an issue apparently the `login` command redirects to `localhost:3000` which we thought to be the port where the frontend would run but we have gave that port to the backend so let's do a quick fix in the backend code and change the port from `3000` to `8080`. We would also have to change the `apiUrl` variable in the `cli/src/constants/constants.ts` folder.
+😱 Oh no! We have just found an issue the `login` command redirects to `localhost:3000` which we thought to be the port where the frontend would run but we have given that port to the backend so let's do a quick fix in the backend code and change the port from `3000` to `8080`. We would also have to change the `apiUrl` variable in the `cli/src/constants/constants.ts` folder.
 
 ```ts
 import * as os from "os";
@@ -1468,7 +1468,7 @@ We would be deploying the backend on [Railway](https://railway.app/). Create a n
 
 Select the GitHub repo and select add environment variables.
 
-This should create a new project for us. Open up that project you would first see that the deploy has been failed, don't worry we would fix that in a minute.
+This should create a new project for us. Open up that project you would first see that the deployment has failed, don't worry we would fix that in a minute.
 
 Open the settings tab
 
@@ -1485,7 +1485,7 @@ We would have to change the scripts in the backend a bit:
 },
 ```
 
-We also need to add a file called `Procfile` which contain the start command. Create a file named `Procfile` under the `server` folder and add the following into that file:
+We also need to add a file called `Procfile` which contains the start command. Create a file named `Procfile` under the `server` folder and add the following to that file:
 
 ```
 web: yarn start
@@ -1493,18 +1493,18 @@ web: yarn start
 
 Push the code to the GitHub repo and this should railway should redeploy it for us.
 
-This should redeploy the latest commit again. You might see the deploy has been failed again no worries we will fix it.
+This should redeploy the latest commit again. You might see the deployment has failed again no worries we will fix it.
 
 Head over to the variables tab and bulk import the environment variables from the `.env` file. We would also need to change the root directory from `/` to `server`. Head over to the settings tab and scroll down a bit and change the root directory from `/` to `server` and add the start command as `yarn start`.
 
-That's you have just deployed the backend on railway! 🎉
+That's you have just deployed the backend on the railway! 🎉
 
 ## 📦 Publishing the CLI
 
-Let's now finally publish our CLI on npmjs. We would need change the links of the backend and the frontend in the code of CLI. So let's do that:
+Let's now finally publish our CLI on npmjs. We would need to change the links of the backend and the frontend in the code of CLI. So let's do that:
 
-- In the `src/constants/constants.ts` change the backend url from `localhost:8080` to the deployed url of the backend.
-- In the `src/lib/connectWallet.ts` change the frontend url from `localhost:3000` to the deployed url of the frontend.
+- In the `src/constants/constants.ts` change the backend URL from `localhost:8080` to the deployed URL of the backend.
+- In the `src/lib/connectWallet.ts` change the frontend URL from `localhost:3000` to the deployed URL of the frontend.
 
 Let's test the cli out for the last time.
 
@@ -1518,13 +1518,13 @@ Woohoo! It's working! 🎉
 
 Let's now generate the README.md using oclif 👀. Run `yarn oclif readme` command. This should generate a README.md with the table of content of all the commands which we have created and with their usage and descriptions.
 
-Let's now publish it to npmjs by using the `npm publish` command. Wooho! It's finally done!
+Let's now publish it to npmjs by using the `npm publish` command. Woohoo! It's finally done!
 
 ![](https://c.tenor.com/MkyiUsAp8t8AAAAM/tom-and-jerry-tom-the-cat.gif)
 
 # 👋 The end
 
-All those who have read the blog post until here you can deserve a big round of applause.
+All those who have read the blog post until here can deserve a big round of applause.
 
 ![](https://c.tenor.com/Sq7rY9NKKd4AAAAC/oscars-standing-ovation.gif)
 
