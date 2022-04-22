@@ -6,8 +6,7 @@
   "scripts": {
     "watch": "tsc --watch",
     "build": "tsc",
-    "prestart": "yarn run build",
-    "start": "node dist/src/index.js",
+    "start": "yarn build && node dist/src/index.js",
     "dev": "nodemon dist/src/index.js"
   },
   "dependencies": {
