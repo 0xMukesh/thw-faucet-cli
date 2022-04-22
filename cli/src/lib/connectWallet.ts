@@ -42,12 +42,12 @@ const connectWallet = async () => {
           "/callback",
           async (req: express.Request, res: express.Response) => {
             resolve(req.query.address);
-            res.redirect("http://localhost:3000/done");
+            res.redirect("https://thw-faucet-cli.vercel.app/done");
           }
         );
 
         // opening the main website in browser
-        open("http://localhost:3000");
+        open("https://thw-faucet-cli.vercel.app");
 
         // grabbing the address from the query param
         const code = await p;

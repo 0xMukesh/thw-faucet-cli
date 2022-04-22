@@ -1,6 +1,6 @@
 {
   "name": "thw-faucet-cli",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "🌈 A command-line tool to quickly get testnet tokens right from your terminal with metamask authentication!",
   "author": "Kira272921 @Kira272921",
   "bin": {

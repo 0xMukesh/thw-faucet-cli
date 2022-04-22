@@ -1493,8 +1493,43 @@ web: yarn start
 
 Push the code to the GitHub repo and this should railway should redeploy it for us.
 
-This should redeploy the latest commit again.
+This should redeploy the latest commit again. You might see the deploy has been failed again no worries we will fix it.
+
+Head over to the variables tab and bulk import the environment variables from the `.env` file. We would also need to change the root directory from `/` to `server`. Head over to the settings tab and scroll down a bit and change the root directory from `/` to `server` and add the start command as `yarn start`.
+
+That's you have just deployed the backend on railway! 🎉
+
+## 📦 Publishing the CLI
+
+Let's now finally publish our CLI on npmjs. We would need change the links of the backend and the frontend in the code of CLI. So let's do that:
+
+- In the `src/constants/constants.ts` change the backend url from `localhost:8080` to the deployed url of the backend.
+- In the `src/lib/connectWallet.ts` change the frontend url from `localhost:3000` to the deployed url of the frontend.
+
+Let's test the cli out for the last time.
+
+![](https://imgur.com/ryLY9Ih.png)
+
+![](https://imgur.com/V76k4gh.png)
+
+![](https://imgur.com/VdVv0AA.png)
+
+Woohoo! It's working! 🎉
+
+Let's now generate the README.md using oclif 👀. Run `yarn oclif readme` command. This should generate a README.md with the table of content of all the commands which we have created and with their usage and descriptions.
+
+Let's now publish it to npmjs by using the `npm publish` command. Wooho! It's finally done!
+
+![](https://c.tenor.com/MkyiUsAp8t8AAAAM/tom-and-jerry-tom-the-cat.gif)
+
+# 👋 The end
 
 All those who have read the blog post until here you can deserve a big round of applause.
 
 ![](https://c.tenor.com/Sq7rY9NKKd4AAAAC/oscars-standing-ovation.gif)
+
+The entire for this project is available on my GitHub [Kira272921/thw-faucet-cli](https://github.com/Kira272921/thw-faucet-cli).
+
+The npmjs package link for this project [thw-faucet-cli](https://www.npmjs.com/package/thw-faucet-cli).
+
+~ Happy building!
