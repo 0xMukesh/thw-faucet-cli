@@ -17,7 +17,7 @@ Let me explain how are we going to implement the Metamask authentication.
 - We would be starting up a local express application at port `9991` (don’t worry we would be immediately closing the port after the authentication process is been completed). The `/callback` route exists on this local express application.
 - 👀 We don’t want the user to be seeing a blank page for hours right? (in context to make the user stay on the `/callback` route on the local express application) Instead, we can redirect them to a `/done` route on the main website, so that they will know that the authentication process is being completed.
 
-![Authentication workflow](https://imgur.com/vMk25Mx.png)
+![Authentication workflow](https://imgur.com/OeXrCG0.png)
 
 😵‍💫 Woah! That’s hard to digest in one go
 
@@ -25,13 +25,13 @@ Let me explain how are we going to implement the Metamask authentication.
 
 The tech stack which we are going to be using to build this CLI:
 
-- TypeScript as the main programming language that we are going to be using to program both the command-line interface and the website
+- TypeScript as the main programming language that we are going to be using to program the command-line interface, website, and the backend
 - Next.js as the framework that we are going to be using to build the website
 - Tailwind CSS as our CSS framework to style the website
 - Express as the backend framework
 - Oclif as our command-line interface framework
 - Thirdweb for the metamask authentication
-- Web3.js to perform tasks such as sending the testnet token to the user
+- Web3.js and Ethers to perform tasks such as sending the testnet token to the user
 - Alchemy as our blockchain node service
 
 # 🛠️ Building the website
@@ -81,7 +81,7 @@ function MyApp({ Component, pageProps }: AppProps) {
 export default MyApp;
 ```
 
-Let’s now open the setup feature where the user can click a button can connect to their wallet.
+Let’s now add the feature where the user can click a button and can connect their wallet to the website.
 
 Head over to the `pages/index.tsx` file and add the following code:
 
@@ -147,12 +147,12 @@ const Home: NextPage = () => {
 export default Home;
 ```
 
-Let’s what kind of magic is the above code doing 👀
+Let’s understand what kind of magic is the above code doing 👀
 
-We can are using the React hooks provided by the `@thirdweb-dev/react` package which we have installed just a while ago. We are importing the following hooks:
+We are using the React hooks provided by the `@thirdweb-dev/react` package which we have installed just a while ago. We are importing the following hooks:
 
-- `useAddress`, Used to get the address when the user has successfully authenticated themselves
-- `connectWithMetamask`, Used to open the Metamask popup from which the user can authenticate themselves
+- `useAddress`, Used to get the address when the user has successfully authenticated themselves via metamask
+- `connectWithMetamask`, Used to open the metamask popup from which the user can authenticate themselves
 - `connectWithCoinbaseWallet`, Used to authenticate the user via [Coinbase Wallet](https://www.coinbase.com/wallet)
 - `connectWithWalletConnect`, Used to authenticate the user via [Wallet Connect](https://walletconnect.com/)
 
@@ -197,20 +197,19 @@ Fill in the inputs which are been asked and hit enter. This should generate a fo
 
 ![](https://imgur.com/IbGbxej.png)
 
-> Psst... I am making a monorepo for this tutorial. So make sure to add the CLI and website into the `cli` and `web` folders respectively.
+> Psst... I am making a monorepo for this tutorial. So make sure to add the code responsible for CLI into the `cli` folder and the code responsible for the website into the `web` folder.
 
-Let's now clear up some default generated files by Oclif that we are not going to be using in this tutorial.
+Let's now delete some default generated files by Oclif that we are not going to be using in this tutorial.
 
-- We are not going to write any kind of tests for this tutorial. So let's just remove the `tests` folder and the `.mocharc.json` file.
-- We are not going to be using CircleCI for this tutorial. So let's just remove the `.circleci` folder.
-- Oclif has also generated a default command (`hello`) which isn't necessary for this tutorial, so let's
-  just remove the `src/commands/hello` folder.
+- We are not going to write any kind of tests for this tutorial. So let's just delete the `tests` folder and the `.mocharc.json` file.
+- We are not going to be using CircleCI for this tutorial. So let's just delete the `.circleci` folder.
+- Oclif has also generated a default command (`hello`) which isn't necessary for this tutorial, so let's just delete the `src/commands/hello` folder.
 
 ## 🔑 Building the login command
 
-Oclif CLI has pretty useful generators which can be used to generate commands quickly!
+Oclif CLI has pretty useful generator commands which can be used to generate commands quickly!
 
-Let's create a new command named `login` which would be used to authenticate the user via Metamask.
+Let's create a new command named `login` which would be used to authenticate the user via metamask.
 
 ```bash
 npx oclif generate command login
@@ -221,7 +220,7 @@ This would generate two files:
 - `src/commands/login.ts`
 - `src/test/commands/login.test.ts`
 
-As I have said before, we would be not writing any tests in this tutorial. So let's just remove the `test` folder again.
+As I have said before, we would be not writing any tests in this tutorial. So let's just delete the `test` folder again.
 
 Head over to the `src/commands/login.ts` file. You would see that there is a lot of boilerplate code.
 
@@ -261,7 +260,7 @@ Let's install a package called [`inquirer`](https://www.npmjs.com/package/inquir
 yarn add inquirer
 ```
 
-As we are using TypeScript, we need also to install [`@types/inquirer`](https://npmjs.com/package/@types/inquirer) as a dev dependency. The `@types/inquirer` package includes the types for the `inquirer` package.
+As we are using TypeScript, we need also to install [`@types/inquirer`](https://npmjs.com/package/@types/inquirer) as a dev dependency. The `@types/inquirer` package includes the type declarations for the `inquirer` package.
 
 ```bash
 yarn add -D @types/inquirer
@@ -296,7 +295,7 @@ const connectWallet = () => {
 export default connectWallet;
 ```
 
-I have wrapped the entire code which is responsible for connecting the user's wallet inside a function. This helps us to maintain our codebase clean.
+I have wrapped the entire code which is responsible for connecting the user's wallet inside a function. As we are going to be importing this into the `src/commands/login.ts` file.
 
 Let's import the `connectWallet` function into our `src/commands/login.ts` file and call it inside the `run` function.
 
@@ -364,7 +363,7 @@ To install all of the above packages, run the following command:
 yarn add express open chalk@4.1.2
 ```
 
-We are using the [v4.1.2](https://github.com/chalk/chalk/releases/tag/v4.1.2) of chalk are [v5](https://github.com/chalk/chalk/releases/tag/v5.0.0) of chalk is complete ESM module. As we are using TypeScript, it is better to stay on the v4.1.2.
+We are using the [v4.1.2](https://github.com/chalk/chalk/releases/tag/v4.1.2) of chalk as [v5](https://github.com/chalk/chalk/releases/tag/v5.0.0) of chalk is complete ESM module. As we are using TypeScript, it is better to stay on the v4.1.2.
 
 As we are using Typescript, we need also to install the TypeScript declarations for the above packages. `chalk` and `open` come with in-built TypeScript declarations. So we need to just install the TypeScript declarations for the `express` package.
 
@@ -419,7 +418,7 @@ const connectWallet = async () => {
 export default connectWallet;
 ```
 
-👀 We have to change some code in the website. So let's head back to the `web` folder and open the `pages/index.tsx` file. Let's replace the code where we were showing the user's wallet address after he connected to redirecting the user to the local express's `/callback` with the address query parameter.
+👀 We have to change some code in the website. So let's head back to the `web` folder and open the `pages/index.tsx` file. Let's replace the code where we were showing the user's wallet address after they have connected theirs to redirecting the user to the local express's `/callback` with the address query parameter.
 
 ```ts
 import type { NextPage } from "next";
@@ -543,9 +542,9 @@ const connectWallet = async () => {
 export default connectWallet;
 ```
 
-Let's test it out by running the website by the `yarn dev` command. Make sure that you are present in the `web` folder before running this command.
+Let's test it out by starting the website with the `yarn dev` command. Make sure that you are present in the `web` folder before running this command.
 
-Let's also compile our TypeScript code of the CLI into JavaScript by using the `yarn build` command. Make sure that you are present in the `cli` folder before running this command.
+Let's also compile the TypeScript code of the CLI into JavaScript by using the `yarn build` command. Make sure that you are present in the `cli` folder before running this command.
 
 Let's now finally test the login command by running the `./bin/run login` command while being there in the `cli` directory.
 
@@ -641,6 +640,7 @@ const connectWallet = async () => {
         // grabbing the address from the query param
         const code = await p;
 
+        // storing the user's address locally in the config file
         saveAddress(code as string);
 
         console.log(
@@ -703,6 +703,7 @@ export default class Login extends Command {
   static examples = ["faucet-cli login"];
 
   async run() {
+    // checking if the user is already logged in or not
     if (getToken() === null) {
       console.log(chalk.redBright("\nYou are already logged in!"));
       return;
@@ -732,8 +733,8 @@ Let's understand the workflow of the request command:
 
 - The user first uses the `request` command, we would check if the user is logged in or not via the `getToken` function.
 - If the user is not logged in, then we console log saying that you need to be logged in to use this command.
-- If the user is logged in, then send a request to the backend with the specified network (for this tutorial we are going to be using either rinkeby or polygon mumbai)
-- The backend would use web3.js to send the testnet tokens to the user and it would return with the transaction hash in the response.
+- If the user is logged in, then send a request to the backend with the specified network (for this tutorial I am going to be Rinkeby and Polygon Mumbai testnet networks)
+- The backend would use web3.js and ethers to send the testnet tokens to the user and it would return with the transaction hash in the response.
 
 Let's use Oclif's CLI to generate a new command:
 
@@ -1516,7 +1517,7 @@ Let's test the cli out for the last time.
 
 Woohoo! It's working! 🎉
 
-Let's now generate the README.md using oclif 👀. Run `yarn oclif readme` command. This should generate a README.md with the table of content of all the commands which we have created and with their usage and descriptions.
+Let's now generate the README.md using oclif 👀. Run `yarn oclif readme` command. This should generate a README.md with the table of content of all the commands which we have created and their usage and descriptions.
 
 Let's now publish it to npmjs by using the `npm publish` command. Woohoo! It's finally done!
 
@@ -1524,12 +1525,15 @@ Let's now publish it to npmjs by using the `npm publish` command. Woohoo! It's f
 
 # 👋 The end
 
-All those who have read the blog post until here deserves a big round of applause.
+All those who have read the blog post until here deserve a big round of applause. Hope y'all have learned something new from this blog post
 
 ![](https://c.tenor.com/Sq7rY9NKKd4AAAAC/oscars-standing-ovation.gif)
 
-The entire for this project is available on my GitHub [Kira272921/thw-faucet-cli](https://github.com/Kira272921/thw-faucet-cli).
+## 🔗 Links
 
-The npmjs package link for this project [thw-faucet-cli](https://www.npmjs.com/package/thw-faucet-cli).
+- GitHub: https://github.com/Kira272921/thw-faucet-cli
+- npmjs: https://www.npmjs.com/package/thw-faucet-cli
+- Website: https://thw-faucet-cli.vercel.app
+- Backend: https://thw-faucet-cli-production.up.railway.app
 
 ~ Happy building!
